@@ -1,0 +1,199 @@
+{
+  "notebook": "work/notebooks/w07_action_playbook.ipynb",
+  "decision_date": "2026-03-31",
+  "seed": 42,
+  "population": {
+    "audited_pages": 16957,
+    "clients": 26,
+    "dropped_future_metadata": 293357
+  },
+  "label": "April GSC impressions down >=30% vs March (pages with >=100 March impressions, >=20 April GSC days)",
+  "features": [
+    "march_impressions",
+    "march_clicks",
+    "march_ctr",
+    "march_avg_position",
+    "march_pageviews",
+    "march_sessions",
+    "march_engaged_sessions",
+    "days_since_update",
+    "content_type"
+  ],
+  "validation": "5-fold GroupKFold by client; out-of-fold scores",
+  "summary": {
+    "base_rate": 0.474,
+    "model_p20_mean": 0.54,
+    "model_p20_std": 0.1636,
+    "baseline_p20_mean": 0.51,
+    "baseline_p20_std": 0.2329,
+    "oof_auc_pooled": 0.5327,
+    "oof_avg_precision_pooled": 0.5038
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "pages": 7473,
+      "clients": 1,
+      "base_rate": 0.4768,
+      "model_p@20": 0.5,
+      "baseline_p@20": 0.1,
+      "model_auc": 0.5484
+    },
+    {
+      "fold": 2,
+      "pages": 5804,
+      "clients": 1,
+      "base_rate": 0.4719,
+      "model_p@20": 0.55,
+      "baseline_p@20": 0.65,
+      "model_auc": 0.5256
+    },
+    {
+      "fold": 3,
+      "pages": 1227,
+      "clients": 8,
+      "base_rate": 0.2771,
+      "model_p@20": 0.3,
+      "baseline_p@20": 0.65,
+      "model_auc": 0.5248
+    },
+    {
+      "fold": 4,
+      "pages": 1227,
+      "clients": 7,
+      "base_rate": 0.6121,
+      "model_p@20": 0.75,
+      "baseline_p@20": 0.6,
+      "model_auc": 0.5819
+    },
+    {
+      "fold": 5,
+      "pages": 1226,
+      "clients": 9,
+      "base_rate": 0.5261,
+      "model_p@20": 0.6,
+      "baseline_p@20": 0.55,
+      "model_auc": 0.5359
+    }
+  ],
+  "cost_value_assumptions": {
+    "reviews_per_week": 20,
+    "minutes_per_review": 15
+  },
+  "cost_value": [
+    {
+      "list": "Random 20 pages (base rate)",
+      "precision@20": 0.474,
+      "useful_reviews": 9.5,
+      "wasted_reviews": 10.5,
+      "wasted_hours": 2.63
+    },
+    {
+      "list": "W04 rule (stale + visible)",
+      "precision@20": 0.51,
+      "useful_reviews": 10.2,
+      "wasted_reviews": 9.8,
+      "wasted_hours": 2.45
+    },
+    {
+      "list": "Random Forest (out-of-fold)",
+      "precision@20": 0.54,
+      "useful_reviews": 10.8,
+      "wasted_reviews": 9.2,
+      "wasted_hours": 2.3
+    }
+  ],
+  "archetype_summary": [
+    {
+      "archetype": "HIGH_SCORE_HIGH_VISIBILITY_STRONG_RANKING",
+      "pages": 1696,
+      "observed_decline_rate": 0.5684,
+      "median_march_impressions": 1260.5,
+      "lift_vs_base_rate": 1.1991
+    },
+    {
+      "archetype": "HIGH_SCORE_HIGH_VISIBILITY",
+      "pages": 828,
+      "observed_decline_rate": 0.529,
+      "median_march_impressions": 1415.0,
+      "lift_vs_base_rate": 1.116
+    },
+    {
+      "archetype": "HIGH_SCORE_STRONG_RANKING",
+      "pages": 608,
+      "observed_decline_rate": 0.4786,
+      "median_march_impressions": 298.5,
+      "lift_vs_base_rate": 1.0097
+    },
+    {
+      "archetype": "LOWER_SCORE",
+      "pages": 13545,
+      "observed_decline_rate": 0.46,
+      "median_march_impressions": 706.0,
+      "lift_vs_base_rate": 0.9705
+    },
+    {
+      "archetype": "HIGH_SCORE_ONLY",
+      "pages": 280,
+      "observed_decline_rate": 0.4071,
+      "median_march_impressions": 269.5,
+      "lift_vs_base_rate": 0.8589
+    }
+  ],
+  "age_summary": [
+    {
+      "age_group": "0-30 days",
+      "pages": 66,
+      "declining_pages": 32,
+      "decline_rate": 0.4848
+    },
+    {
+      "age_group": "31-90 days",
+      "pages": 16762,
+      "declining_pages": 7951,
+      "decline_rate": 0.4743
+    },
+    {
+      "age_group": "91-180 days",
+      "pages": 118,
+      "declining_pages": 47,
+      "decline_rate": 0.3983
+    },
+    {
+      "age_group": "181+ days",
+      "pages": 11,
+      "declining_pages": 8,
+      "decline_rate": 0.7273
+    }
+  ],
+  "monitoring_reference": {
+    "base_rate": 0.474,
+    "high_score_threshold_q80": 0.64,
+    "score_quantiles": {
+      "0.1": 0.2267,
+      "0.5": 0.4633,
+      "0.9": 0.7333
+    },
+    "feature_medians": {
+      "march_impressions": 768.0,
+      "march_clicks": 1.0,
+      "march_ctr": 0.0007,
+      "march_avg_position": 7.3784,
+      "march_pageviews": 2.0,
+      "march_sessions": 2.0,
+      "march_engaged_sessions": 0.0,
+      "days_since_update": 34.0
+    },
+    "content_type_mix": {
+      "keyword article": 0.9766,
+      "feedly article": 0.0198,
+      "comparison article": 0.0036
+    },
+    "action_mix": {
+      "MONITOR": 13545,
+      "PRIORITY_REVIEW": 2524,
+      "SERP_AND_CTR_REVIEW": 608,
+      "MANUAL_REVIEW": 280
+    }
+  }
+}
